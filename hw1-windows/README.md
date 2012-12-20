@@ -9,6 +9,11 @@ and the movement can be represented by rotation around the x_axis or y_axis. One
 the up vector. (the up vector is actually the norm vector at sphere surface, because there are infinite norm vector at sphere surface
 you have to calculate it in each iteration, and I didn't get the right solution now. I calculate it by viewer's position cross product x_axis, which is wrong.
 
+For task 2, You need calculate the new coordiante system according to (eye, center, up),
+   z = eye - center;
+   x = eye * up;
+   y = x * z;
+I want to say that multiply new coordinate system with one point is actually rotating. And before this rotating you need translate the viewer(or camera) back to origin at first.
 
 ## Orignal teapot
 ![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input.txt.000.png)
