@@ -19,4 +19,4 @@ I want to say that multiply new coordinate system with one point is actually rot
 ![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input.txt.000.png)
 
 ## Left Rotate
-![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input.txt.008.png)
+![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input-002.jpg)
