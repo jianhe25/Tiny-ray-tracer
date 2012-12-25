@@ -33,10 +33,8 @@ mat3 Transform::rotate(const float degrees, const vec3& axis) {
 // Transforms the camera left around the "crystal ball" interface
 void Transform::left(float degrees, vec3& eye, vec3& up) {
 	vec3 y_axis(0.0, 1.0, 0.0);
-	vec3 x_axis(1.0, 0.0, 0.0);
 	eye = eye * rotate(degrees, y_axis);
-	vec3 up_new = glm::cross(eye, x_axis);
-	up = (up_new.y * up.y < 0)? -up_new : up_new;
+	up = up * rotate(degrees, y_axis);
   // YOUR CODE FOR HW1 HERE
 }
 
@@ -44,16 +42,13 @@ void Transform::left(float degrees, vec3& eye, vec3& up) {
 void Transform::up(float degrees, vec3& eye, vec3& up) {
 	vec3 x_axis(1.0, 0.0, 0.0);
 	eye = eye * rotate(degrees, x_axis);
-	up = glm::cross(eye, x_axis);
+	up = up * rotate(degrees, x_axis);
   // YOUR CODE FOR HW1 HERE 
 }
 
 // Your implementation of the glm::lookAt matrix
 mat4 Transform::lookAt(vec3 eye, vec3 up) {
   // YOUR CODE FOR HW1 HERE
-	//printf("eye = %f %f %f\n",eye.x, eye.y, eye.z);
-	//printf("up = %f %f %f\n",up.x, up.y, up.z);
-
 	vec3 w = glm::normalize(eye);
 	vec3 u = glm::normalize(glm::cross(up, w));
 	vec3 v = glm::cross(w, u);
