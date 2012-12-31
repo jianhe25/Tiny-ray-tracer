@@ -55,8 +55,13 @@ void main (void)
 
 		gl_FragColor = ambient;
 		for (int i = 0; i < numused; ++i) {
-			vec3 light_position = lightposn[i].xyz / lightposn[i].w ; 
-			vec3 light_direction = normalize(light_position - mypos); // no attenuation 
+			vec3 light_direction;
+			if (lightposn[i].w == 0) {
+				light_direction = lightposn[i].xyz;
+			} else {
+				vec3 light_position = lightposn[i].xyz / lightposn[i].w ; 
+				light_direction = normalize(light_position - mypos); // no attenuation 
+			}
 			vec3 half = normalize (light_direction + eyedir);  
 			vec4 col = ComputeLight(light_direction, lightcolor[i], normal, half, diffuse, specular, shininess);
 			gl_FragColor += col;

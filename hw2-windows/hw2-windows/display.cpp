@@ -98,7 +98,7 @@ void display() {
           // Set up the object transformations 
           // And pass in the appropriate material properties
 			glPushMatrix();
-			glMultMatrixf(&glm::transpose(obj->transform)[0][0]);
+			glMultMatrixf(&obj->transform[0][0]);
 			glUniform4fv(ambientcol, 1, obj->ambient);
 			glUniform4fv(diffusecol, 1, obj->diffuse);
 			glUniform4fv(specularcol, 1, obj->specular);

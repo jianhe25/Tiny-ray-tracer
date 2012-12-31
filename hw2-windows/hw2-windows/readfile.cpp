@@ -150,8 +150,8 @@ void readfile(const char * filename) {
             // to set up correctly. 
             // Set eyeinit upinit center fovy in variables.h 
 			  eyeinit = vec3(values[0], values[1], values[2]);
-			  upinit = vec3(values[3], values[4], values[5]);
-			  center = vec3(values[6], values[7], values[8]);
+			  center = vec3(values[3], values[4], values[5]);
+			  upinit = vec3(values[6], values[7], values[8]);
 			  fovy = values[9];
           }
         }
@@ -169,7 +169,7 @@ void readfile(const char * filename) {
               for (i = 0 ; i < 4 ; i++) {
                 (obj -> ambient)[i] = ambient[i] ; 
                 (obj -> diffuse)[i] = diffuse[i] ; 
-                (obj -> specular)[i] = specular[i] ; 
+                (obj -> specular)[i] = specular[i] ;
                 (obj -> emission)[i] = emission[i] ;
               }
               obj -> shininess = shininess ; 
@@ -188,7 +188,7 @@ void readfile(const char * filename) {
             // YOUR CODE FOR HW 2 HERE.  
             // Think about how the transformation stack is affected
             // You might want to use helper functions on top of file.  		
-			  rightmultiply(Transform::translate(values[0], values[1], values[2]), transfstack);
+			  rightmultiply(glm::transpose(Transform::translate(values[0], values[1], values[2])), transfstack);
           }
         }
         else if (cmd == "scale") {
@@ -197,7 +197,7 @@ void readfile(const char * filename) {
             // YOUR CODE FOR HW 2 HERE.  
             // Think about how the transformation stack is affected
             // You might want to use helper functions on top of file.  
-			  rightmultiply(Transform::scale(values[0], values[1], values[2]), transfstack);
+			  rightmultiply(glm::transpose(Transform::scale(values[0], values[1], values[2])), transfstack);
           }
         }
         else if (cmd == "rotate") {
@@ -209,7 +209,7 @@ void readfile(const char * filename) {
             // See how the stack is affected, as above.  
 				mat3 rot3 = Transform::rotate(values[3], vec3(values[0], values[1], values[2]));
 				mat4 rot4(rot3);
-				rightmultiply(rot4, transfstack);
+				rightmultiply(glm::transpose(rot4), transfstack);
           }
         }
         

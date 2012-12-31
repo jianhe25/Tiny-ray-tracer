@@ -2,7 +2,7 @@
 
 
 #include "Transform.h"
-
+#include <stdio.h>
 
 // Helper rotation function.  Please implement this.  
 mat3 Transform::rotate(const float degrees, const vec3& axis) {
@@ -34,7 +34,13 @@ void Transform::up(float degrees, vec3& eye, vec3& up) {
 	up = up * rotate(degrees, x_axis);
 }
 
+void debug(const vec3 &vec, const char* message="") {
+	printf("%s: %.2f %.2f %.2f\n",message, vec.x, vec.y, vec.z);
+}
 mat4 Transform::lookAt(const vec3 &eye, const vec3 &center, const vec3 &up) {
+	//debug(eye, "eye");
+	//debug(up, "up");
+	//debug(center, "center");
   // YOUR CODE FOR HW2 HERE
 	vec3 w = glm::normalize(eye);
 	vec3 u = glm::normalize(glm::cross(up, w));
@@ -61,7 +67,7 @@ mat4 Transform::lookAt(const vec3 &eye, const vec3 &center, const vec3 &up) {
 mat4 Transform::perspective(float fovy, float aspect, float zNear, float zFar)
 {
 	float theta = fovy / 2.0 / 180.0 * pi;
-	float d = 1.0 / glm::tan(fovy);
+	float d = 1.0 / glm::tan(theta);
 	float A = -(zFar + zNear) / (zFar - zNear);
 	float B = -2 * zFar * zNear / (zFar - zNear);
 	mat4 perspective(d / aspect, 0.0, 0.0, 0.0,
