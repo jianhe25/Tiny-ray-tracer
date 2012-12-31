@@ -1,0 +1,68 @@
+#CS184 HW1 Test Cases v1
+#Commands are:
+#alias, set key aliases: alias left '100'
+#input, input keys: input left a r down
+#save, save current frame: save
+#inputsave, input keys and save: inputsave left a r down
+#delimited by newline
+
+#aliases must be >1 character, no spaces
+
+#NOTE: the program is -not- reset after each save/inputsave. i.e.
+#inputsave left
+#inputsave left
+#means second save has hit left twice
+
+#"special" keys are single quoted, like '100'.
+#literals can be used, by inputting the literal
+#numbers of normal keys can be used by double quoting: "27"
+
+alias left '100'
+alias up '101'
+alias right '102'
+alias down '103'
+alias esc "27"
+
+save
+input + + + + + + + +
+input + + + + + + + +
+input left
+input + up
+input + + right
+inputsave + + + down
+
+input + + + + + + + +
+input + + + + + + + +
+input 0
+input + up
+input + + right
+input + + + down
+input - left
+inputsave - up
+inputsave - down
+
+input + + + + + + + +
+input t
+inputsave + up
+input + + right
+inputsave + + + down
+input - up
+inputsave - - left
+inputsave - down
+
+
+input r
+input + + + + + + + +
+input - left
+inputsave - down
+inputsave g
+input g
+
+input s
+inputsave + up
+input + + right
+inputsave + + + down
+input - up
+inputsave - - right
+
+
