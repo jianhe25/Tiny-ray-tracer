@@ -36,7 +36,13 @@ void transformvec (const GLfloat input[4], GLfloat output[4]) {
       output[i] += modelview[4*j+i] * input[j] ; 
   }
 }
-
+void debug(const mat4& mat) {
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 4; ++j)
+			printf("%.2f ",mat[i][j]);
+		puts("");
+	}
+}
 GLfloat light_pos_transformed[4 * numLights];
 void display() {
 	glClearColor(0, 0, 1, 0);
@@ -55,7 +61,7 @@ void display() {
 			mv = glm::transpose(mv) ; // accounting for row major
 		}
         glLoadMatrixf(&mv[0][0]) ; 
-
+		debug(mv);
         // Set Light and Material properties for the teapot
         // Lights are transformed by current modelview matrix. 
         // The shader can't do this globally. 
@@ -75,16 +81,15 @@ void display() {
      
         // Transformations for objects, involving translation and scaling 
         mat4 sc(1.0) , tr(1.0), transf(1.0) ; 
-        sc = Transform::scale(sx,sy,1.0) ; 
-        tr = Transform::translate(tx,ty,0.0) ; 
+        sc = glm::transpose( Transform::scale(sx,sy,1.0) ); 
+		tr = glm::transpose( Transform::translate(tx,ty,0.0) ); 
 
         // YOUR CODE FOR HW 2 HERE.  
         // You need to use scale, translate and modelview to 
         // set up the net transformation matrix for the objects.  
         // Account for GLM issues etc.  
-		transf = sc * tr * mv;
-		transf = glm::transpose(transf);
-        glLoadMatrixf(&transf[0][0]) ; 
+		transf = mv * tr * sc;
+		glLoadMatrixf(&transf[0][0]) ; 
 		
         for (int i = 0 ; i < numobjects ; i++) {
           object * obj = &(objects[i]) ; 
@@ -93,7 +98,7 @@ void display() {
           // Set up the object transformations 
           // And pass in the appropriate material properties
 			glPushMatrix();
-			glMultMatrixf(&obj->transform[0][0]);
+			glMultMatrixf(&glm::transpose(obj->transform)[0][0]);
 			glUniform4fv(ambientcol, 1, obj->ambient);
 			glUniform4fv(diffusecol, 1, obj->diffuse);
 			glUniform4fv(specularcol, 1, obj->specular);
