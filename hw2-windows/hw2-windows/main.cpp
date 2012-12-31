@@ -168,7 +168,8 @@ void init() {
       diffusecol = glGetUniformLocation(shaderprogram,"diffuse") ;       
       specularcol = glGetUniformLocation(shaderprogram,"specular") ;       
       emissioncol = glGetUniformLocation(shaderprogram,"emission") ;       
-      shininesscol = glGetUniformLocation(shaderprogram,"shininess") ;       
+      shininesscol = glGetUniformLocation(shaderprogram,"shininess") ;     
+	  glEnable(GL_DEPTH_TEST) ;
 }
 
 int main(int argc, char* argv[]) {

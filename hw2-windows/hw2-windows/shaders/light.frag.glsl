@@ -33,7 +33,7 @@ uniform float shininess ;
 
 vec4 ComputeLight (const in vec3 direction, const in vec4 lightcolor, const in vec3 normal, const in vec3 halfvec, const in vec4 mydiffuse, const in vec4 myspecular, const in float myshininess) {
 
-	float nDotL = max(dot(direction, normal), 0.0);
+	float nDotL = max(dot(normal, direction), 0.0);
 	vec4 diffuse = mydiffuse * lightcolor * nDotL;
 
 	float nDotH = max(dot(normal, halfvec), 0.0);
@@ -48,7 +48,7 @@ void main (void)
         const vec3 eyepos = vec3(0,0,0) ; 
         vec4 _mypos = gl_ModelViewMatrix * myvertex ; 
 		vec3 mypos = _mypos.xyz / _mypos.w;
-		vec3 eyedir = eyepos - mypos;
+		vec3 eyedir = normalize(eyepos - mypos);
 
 		vec3 _normal = (gl_ModelViewMatrixInverseTranspose*vec4(mynormal,0.0)).xyz ; 
         vec3 normal = normalize(_normal);

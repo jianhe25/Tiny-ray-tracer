@@ -43,6 +43,9 @@ void debug(const mat4& mat) {
 		puts("");
 	}
 }
+void debug(GLfloat vec[], const char *message="") {
+	printf("%s: %.2f %.2f %.2f %.2f\n",message, vec[0], vec[1], vec[2], vec[3]);
+}
 GLfloat light_pos_transformed[4 * numLights];
 void display() {
 	glClearColor(0, 0, 1, 0);
@@ -66,9 +69,9 @@ void display() {
         // Lights are transformed by current modelview matrix. 
         // The shader can't do this globally. 
         // So we need to do so manually.  
+		glUniform1i(numusedcol, numused);
         if (numused) {
           glUniform1i(enablelighting,true) ;
-
           // YOUR CODE FOR HW 2 HERE.  
           // You need to pass the lights to the shader. 
           // Remember that lights are transformed by modelview first.  
@@ -104,7 +107,8 @@ void display() {
 			glUniform4fv(specularcol, 1, obj->specular);
 			glUniform4fv(emissioncol, 1, obj->emission);
 			glUniform1f(shininesscol, obj->shininess);
-
+			debug(obj->ambient, "ambient");
+			debug(obj->diffuse, "diffuse");
           // Actually draw the object
           // We provide the actual glut drawing functions for you.  
           if (obj -> type == cube) {
