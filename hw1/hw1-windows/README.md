@@ -16,7 +16,7 @@ For task 2, You need calculate the new coordiante system according to (eye, cent
 I want to say that multiply new coordinate system with one point is actually rotating. And before this rotating you need translate the viewer(or camera) back to origin at first.
 
 ## Orignal teapot
-![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input.txt.000.png)
+![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1/hw1-windows/input.txt.000.png)
 
 ## Left Rotate
-![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1-windows/input.txt.008.png)
+![original teapot](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw1/hw1-windows/input.txt.008.png)
