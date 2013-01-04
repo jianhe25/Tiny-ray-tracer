@@ -1,13 +1,4 @@
-Image Raytrace (Camera cam, Scene scene, int width, int height) 
-{ 
-	Image image = new Image (width, height) ; 
-	for (int i = 0 ; i < height ; i++)  
-		for (int j = 0 ; j < width ; j++) { 
-			Ray ray = cam.GenerateRay(i, j);
-			image[i][j] = RayTracer.Trace(ray, scene);
-		}
-	return image;
-}
+
 
 #include "constants.h"
 #include "basic_structs.h"
@@ -19,7 +10,7 @@ class RayTracer {
 		}
 		double nearest_dist = INF;
 		const Object* hit_object;
-		for (int i = 0; i < scene.num_objects(); ++i) {
+		for (int i = 0; i < scene.objects.size(); ++i) {
 			double dist;
 			if (scene.objects[i].Intersect(ray, &dist) && dist < nearest_dist) {
 				nearest_dist = dist;
@@ -33,7 +24,7 @@ class RayTracer {
 		Material material = hit_object->material();
 		Vec3 normal = hit_object->normal();
 		Point hit_point = ray.CalcPoint(nearest_dist);
-		for (int i = 0; i < scene.num_lights(); ++i) {
+		for (int i = 0; i < scene.lights.size(); ++i) {
 			if (!scene.lights[i].IsBlocked(hit_point)) {
 				color += scene.lights[i].CalcLight(material, normal, ray, hit_point);
 			}

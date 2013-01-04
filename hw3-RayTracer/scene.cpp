@@ -5,15 +5,10 @@
 #include <sstream>
 #include <deque>
 #include <stack>
-#include <GL/glew.h>
-#include <GL/glut.h>
 #include "Transform.h" 
 
-using namespace std ;
-#include "variables.h" 
-#include "readfile.h"
-
-
+using namespace std;
+#include "scene.h" 
 
 void rightmultiply(const mat4 & M, stack<mat4> &transform_stack) {
 	mat4 &T = transform_stack.top() ; 
@@ -23,7 +18,7 @@ void rightmultiply(const mat4 & M, stack<mat4> &transform_stack) {
 
 // Function to read the input data values
 // Use is optional, but should be very helpful in parsing.  
-bool Scene::readvals(stringstream &s, const int numvals, GLfloat *values) {
+bool Scene::readvals(stringstream &s, const int numvals, float *values) {
 	for (int i = 0 ; i < numvals ; i++) {
 		s >> values[i] ; 
 		if (s.fail()) {
@@ -34,10 +29,10 @@ bool Scene::readvals(stringstream &s, const int numvals, GLfloat *values) {
 	return true ; 
 }
 
-void Scene::readfile(const char *filename) {
+void Scene::readfile(const string &filename) {
 	string str, cmd ; 
 	ifstream in ;
-	in.open(filename); 
+	in.open(filename.c_str()); 
 	if (!in.is_open()) {
 		cerr << "Open " << filename << " failed!" << endl;
 		throw 2;
@@ -49,103 +44,135 @@ void Scene::readfile(const char *filename) {
 
 	getline (in, str) ; 
 	while (in) {
-		if ((str.find_first_not_of(" \t\r\n") != string::npos) && (str[0] != '#')) {
+		if (!((str.find_first_not_of(" \t\r\n") != string::npos) && (str[0] != '#'))) {
+            getline(in, str);
+            continue;
+		}
 		// Ruled out comment and blank lines 
-		stringstream s(str) ;
+		stringstream s(str);
 		s >> cmd; 
 		int i; 
-		GLfloat values[10] ; // position and color for light, colors for others
+		float values[10]; // position and color for light, colors for others
 		// Up to 10 params for cameras.  
 		bool validinput ; // validity of input 
 
 		// Process the light, add it to database.
-		// Lighting Command
-		if (cmd == "light") {
-			if (numused == numLights) // No more Lights 
-				cerr << "Reached Maximum Number of Lights " << numused << " Will ignore further lights\n" ;
-			else {
-				validinput = readvals(s, 8, values) ; // Position/color for lts.
-				if (validinput) {
-					for (int i = 0; i < 4; ++i) {
-						lightposn[i] = values[i];
-						lightcolor[i] = values[i+4];
-					}
-					++numused ; 
-				}
-			}
+		// directional light
+		if (cmd == "directional" || cmd == "point") {
+            validinput = readvals(s, 6, values) ; // Position/color for lts.
+            if (validinput) {
+                Light light;
+                light.positionOrDirection = vec3(values[0], values[1], values[2]);
+                light.color = Color(values[3], values[4], values[5]);
+                if (cmd == "directional")
+                    light.type = Light::directional;
+                else if (cmd == "point")
+                    light.type = Light::point;
+                
+                lights.push_back(light);
+            }
 		}
-		// Material Commands 
+		else if (cmd == "attenuation") {
+		    validinput = readvals(s, 3, values);
+		    if (validinput) 
+                attenuation[i] = values[i];
+		}
+		// materials Commands 
 		// Ambient, diffuse, specular, shininess
 		// Filling this in is pretty straightforward, so I've left it in 
 		// the skeleton, also as a hint of how to do the more complex ones.
-		// Note that no transforms/stacks are applied to the colors. 
+		// Note that no transformrs/stacks are applied to the colors. 
 		else if (cmd == "ambient") {
-			validinput = readvals(s, 4, values) ; // colors 
+			validinput = readvals(s, 3, values) ; // colors 
 			if (validinput) 
-			for (i = 0 ; i < 4 ; i++) ambient[i] = values[i] ; 
-		} 
+                ambient = Color(values[0], values[1], values[2]); 
+		}
 		else if (cmd == "diffuse") {
-			validinput = readvals(s, 4, values) ; 
+			validinput = readvals(s, 3, values) ; 
 			if (validinput) 
-			for (i = 0 ; i < 4 ; i++) diffuse[i] = values[i] ; 
+                materials.diffuse = Color(values[0], values[1], values[2]); 
 		}
 		else if (cmd == "specular") {
-			validinput = readvals(s, 4, values) ; 
+			validinput = readvals(s, 3, values) ; 
 			if (validinput) 
-			for (i = 0 ; i < 4 ; i++) specular[i] = values[i] ; 
+                materials.specular = Color(values[0], values[1], values[2]); 
 		}
 		else if (cmd == "emission") {
-			validinput = readvals(s, 4, values) ; 
+			validinput = readvals(s, 3, values) ; 
 			if (validinput) 
-			for (i = 0 ; i < 4 ; i++) emission[i] = values[i] ; 
+                materials.emission = Color(values[0], values[1], values[2]); 
 		}
 		else if (cmd == "shininess") {
 			validinput = readvals(s, 1, values) ; 
-			if (validinput) shininess = values[0] ; 
+			if (validinput) 
+                materials.shininess = values[0] ; 
 		}
 		else if (cmd == "size") {
-			validinput = readvals(s,2,values) ; 
+			validinput = readvals(s, 2, values) ; 
 			if (validinput) { 
 				width = (int) values[0] ; 
 				height = (int) values[1] ; 
 			}
 		}
 		else if (cmd == "camera") {
-			validinput = readvals(s,10,values) ; // 10 values eye cen up fov
+			validinput = readvals(s, 10, values) ; // 10 values eye cen up fov
 			if (validinput) {
-				eyeinit = vec3(values[0], values[1], values[2]);
-				upinit = vec3(values[3], values[4], values[5]);
-				center = vec3(values[6], values[7], values[8]);
-				fovy = values[9];
+				camera.eye = vec3(values[0], values[1], values[2]);
+				camera.center = vec3(values[3], values[4], values[5]);
+				camera.up = vec3(values[6], values[7], values[8]);
+				camera.fovy = values[9];
 			}
+		}
+		else if (cmd == "maxdepth") {
+			validinput = readvals(s, 1, values);
+			if (validinput) maxDepth = values[0];
 		}
 		else if (cmd == "vertex") {
-
+			validinput = readvals(s, 3, values);
+			if (validinput) vertexBuffer.push_back(vec3(values[0], values[1], values[2]));
 		}
-		// I've left the code for loading objects in the skeleton, so 
-		// you can get a sense of how this works.  
-		else if (cmd == "sphere" || cmd == "cube" || cmd == "teapot") {
-			if (numobjects == maxobjects) // No more objects 
-				cerr << "Reached Maximum Number of Objects " << numobjects << " Will ignore further objects\n" ; 
-			else {
-				validinput = readvals(s, 1, values) ; 
-				if (validinput) {
-					object *obj = &(objects[numobjects]) ; 
-					obj -> size = values[0] ; 
-					for (i = 0 ; i < 4 ; i++) {
-						(obj -> ambient)[i] = ambient[i] ; 
-						(obj -> diffuse)[i] = diffuse[i] ; 
-						(obj -> specular)[i] = specular[i] ; 
-						(obj -> emission)[i] = emission[i] ;
-					}
-					obj -> shininess = shininess ; 
-					obj -> transform = transform_stack.top() ; 
-					if (cmd == "sphere") obj -> type = sphere ; 
-					else if (cmd == "cube") obj -> type = cube ; 
-					else if (cmd == "teapot") obj -> type = teapot ; 
-				}
-				++numobjects ; 
+		else if (cmd == "vertexnormal") {
+			validinput = readvals(s, 6, values);
+			if (validinput) {
+				vertexBufferWithNormal.push_back(vec3(values[0], values[1], values[2]));
+				vertexNormalBuffer.push_back(vec3(values[3], values[4], values[5]));
 			}
+		}
+		else if (cmd == "tri") {
+			validinput = readvals(s, 3, values);
+			if (validinput) {
+				Triangle* triangle = new Triangle(
+                    vertexBuffer[values[0]], vertexBuffer[values[1]], vertexBuffer[values[2]]);
+				objects.push_back(triangle);
+				objects.back()->materials = materials;
+				objects.back()->transform = transform_stack.top();
+			}
+		}
+		else if (cmd == "trinormal") {
+			validinput = readvals(s, 6, values);
+			if (validinput) {
+				Triangle* triangle = new Triangle(vertexBufferWithNormal[values[0]], 
+						vertexBufferWithNormal[values[1]], 
+						vertexBufferWithNormal[values[2]],
+						vertexNormalBuffer[values[0]],
+						vertexNormalBuffer[values[1]],
+						vertexNormalBuffer[values[2]]
+						);
+				objects.push_back(triangle);
+				objects.back()->materials = materials;
+				objects.back()->transform = transform_stack.top();
+			}
+		}
+
+		else if (cmd == "sphere") {
+			validinput = readvals(s, 4, values);
+			Sphere* sphere = new Sphere(vec3(values[0], values[1], values[2]), values[3]);
+			objects.push_back(sphere);
+            objects.back()->materials = materials;
+            objects.back()->transform = transform_stack.top();
+		}
+		
+		else if (cmd == "maxverts" || cmd == "maxvertnorms") { // just ignore
 		}
 
 		else if (cmd == "translate") {
@@ -161,7 +188,7 @@ void Scene::readfile(const char *filename) {
 			}
 		}
 		else if (cmd == "rotate") {
-		validinput = readvals(s,4,values) ; 
+			validinput = readvals(s,4,values) ; 
 			if (validinput) {
 				mat3 rot3 = Transform::rotate(values[3], vec3(values[0], values[1], values[2]));
 				mat4 rot4(rot3);
@@ -182,9 +209,10 @@ void Scene::readfile(const char *filename) {
 			cerr << "Unknown Command: " << cmd << " Skipping \n" ; 
 		}
 		getline (in, str) ; 
-	}
-	// Set up initial position for eye, up and amount
-	// As well as booleans 
-	eye = eyeinit; 
-	up = upinit; 
+    }
+}
+Scene::Scene() {
+}
+
+Scene::~Scene() {
 }

@@ -33,13 +33,13 @@ BYTE* RayTrace (Camera camera, Scene scene, int width, int height)  {
 			Ray ray = camera.GenerateRay(i, j);
 			Color color = RayTracer.Trace(ray, scene);
 			int base = 3 * (i * width + j);
-			image[base + 0] = color.r;
-			image[base + 1] = color.g;
-			image[base + 2] = color.b;
+			image[base + 0] = color.Rbyte();
+			image[base + 1] = color.Gbyte();
+			image[base + 2] = color.Bbyte();
 		}
 	return image;
 }
-
+/*
 int main(int argc, char* argv[]) {
 
 	if (argc < 2) {
@@ -57,3 +57,4 @@ int main(int argc, char* argv[]) {
 	FreeImage_DeInitialise();
 	return 0;
 }
+*/

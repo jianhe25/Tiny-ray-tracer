@@ -5,8 +5,8 @@
 
 // Include the helper glm library, including matrix transform extensions
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 // glm provides vector, matrix classes like glsl
 // Typedefs to make code more readable 
