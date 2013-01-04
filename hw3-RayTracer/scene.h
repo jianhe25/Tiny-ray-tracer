@@ -4,6 +4,9 @@
 #include "object.h"
 using namespace std;
 
+#ifndef _SCENE_H
+#define _SCENE_H
+
 void rightmultiply(const mat4 & M, stack<mat4> &transform_stack);
 
 struct Camera {
@@ -17,8 +20,7 @@ struct Camera {
 	// Default camera configuration
 	Camera() : eye(0.0,0.0,5.0), up(0.0,1.0,0.0), center(0.0,0.0,0.0) {}
 };
-struct Light
-{
+struct Light {
     vec3 positionOrDirection; // Light Positions for point light
  	vec3 transform; // Lights transformed by modelview
  	Color color; // Light Colors
@@ -39,10 +41,9 @@ public:
 	void readfile (const string &filename);
 	Camera camera; 
 	
-	int width, height; // width and height 
 	int maxDepth; 	   // max depth of ray tracing
 
-
+    int width, height;
 	// Lighting parameter array, similar to that in the fragment shader
 	vector<Light> lights;
 
@@ -56,3 +57,4 @@ public:
 	vector<vec3> vertexBuffer, vertexBufferWithNormal; // vertex buffer
 	vector<vec3> vertexNormalBuffer; // vertex normal, correspond to vertex with normal
 };
+#endif // _SCENE_H

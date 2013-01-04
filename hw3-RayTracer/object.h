@@ -2,9 +2,10 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "global_variables.h"
 
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef _OBJECT_H
+#define _OBJECT_H
 
 typedef glm::mat3 mat3 ;
 typedef glm::mat4 mat4 ; 

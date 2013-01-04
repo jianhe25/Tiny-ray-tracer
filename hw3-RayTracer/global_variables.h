@@ -1,0 +1,4 @@
+#ifndef _GLOBAL_VARIABLES_H
+#define _GLOBAL_VARIABLES_H
+
+#endif // _GLOBAL_VARIABLES_H

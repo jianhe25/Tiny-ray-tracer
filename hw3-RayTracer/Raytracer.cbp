@@ -6,14 +6,21 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
+			<Script file="lib_finder.script" />
 			<Target title="Debug">
 				<Option output="bin\Debug\Raytracer" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="scene1.test" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
+				<Linker>
+					<Add library="lib\FreeImage.lib" />
+					<Add directory="lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin\Release\Raytracer" prefix_auto="1" extension_auto="1" />
@@ -32,10 +39,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="RayTracer.cpp" />
 		<Unit filename="RayTracer.h" />
+		<Unit filename="RayTracer_test.cc" />
 		<Unit filename="Raytracer.cbp" />
 		<Unit filename="Transform.cpp" />
-		<Unit filename="constants.h" />
+		<Unit filename="config.h" />
+		<Unit filename="global_variables.h" />
+		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
 		<Unit filename="scene.cpp" />
@@ -46,6 +57,8 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

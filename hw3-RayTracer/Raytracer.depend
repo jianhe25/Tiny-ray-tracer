@@ -261,3 +261,308 @@
 	"Transform.h"
 	<stdio.h>
 
+1357303826 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<sstream>
+	<deque>
+	<stack>
+	"Transform.h"
+	"scene.h"
+
+1357297375 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\transform.h
+	"glm/glm.hpp"
+	"glm/gtc/matrix_transform.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\glm.hpp
+	"core/_fixes.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	"core/setup.hpp"
+	"./core/_detail.hpp"
+	"./core/type.hpp"
+	"./core/func_trigonometric.hpp"
+	"./core/func_exponential.hpp"
+	"./core/func_common.hpp"
+	"./core/func_packing.hpp"
+	"./core/func_geometric.hpp"
+	"./core/func_matrix.hpp"
+	"./core/func_vector_relational.hpp"
+	"./core/func_integer.hpp"
+	"./core/func_noise.hpp"
+	"./core/_swizzle.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\_fixes.hpp
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\setup.hpp
+	<immintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\_detail.hpp
+	"setup.hpp"
+	<cassert>
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type.hpp
+	"type_half.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_gentype.hpp"
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat2x2.hpp"
+	"type_mat2x3.hpp"
+	"type_mat2x4.hpp"
+	"type_mat3x2.hpp"
+	"type_mat3x3.hpp"
+	"type_mat3x4.hpp"
+	"type_mat4x2.hpp"
+	"type_mat4x3.hpp"
+	"type_mat4x4.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_half.hpp
+	<cstdlib>
+	"type_half.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_half.inl
+	"_detail.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_float.hpp
+	"type_half.hpp"
+	"setup.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_int.hpp
+	"setup.hpp"
+	"_detail.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_gentype.hpp
+	"type_size.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_size.hpp
+	<cstdlib>
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec1.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec1.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec.hpp
+	"type_gentype.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\_swizzle.hpp
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec1.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec2.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec2.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec2.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec3.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec3.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec3.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec4.hpp
+	"type_vec.hpp"
+	"type_float.hpp"
+	"type_int.hpp"
+	"type_size.hpp"
+	"_swizzle.hpp"
+	"type_vec4.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_vec4.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x2.hpp
+	"type_mat.hpp"
+	"type_mat2x2.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat.hpp
+	"type_gentype.hpp"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x2.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x3.hpp
+	"type_mat.hpp"
+	"type_mat2x3.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x3.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x4.hpp
+	"type_mat.hpp"
+	"type_mat2x4.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat2x4.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x2.hpp
+	"type_mat.hpp"
+	"type_mat3x2.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x2.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x3.hpp
+	"type_mat.hpp"
+	"type_mat3x3.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x3.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x4.hpp
+	"type_mat.hpp"
+	"type_mat3x4.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat3x4.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x2.hpp
+	"type_mat.hpp"
+	"type_mat4x2.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x2.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x3.hpp
+	"type_mat.hpp"
+	"type_mat4x3.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x3.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x4.hpp
+	"type_mat.hpp"
+	"type_mat4x4.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\type_mat4x4.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_trigonometric.hpp
+	"func_trigonometric.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_trigonometric.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_exponential.hpp
+	"func_exponential.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_exponential.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_common.hpp
+	"_fixes.hpp"
+	"func_common.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_common.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_packing.hpp
+	"func_packing.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_packing.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_geometric.hpp
+	"func_geometric.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_geometric.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_matrix.hpp
+	"func_matrix.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_matrix.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_vector_relational.hpp
+	"_detail.hpp"
+	"func_vector_relational.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_vector_relational.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_integer.hpp
+	"func_integer.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_integer.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_noise.hpp
+	"func_noise.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\core\func_noise.inl
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\gtc\matrix_transform.hpp
+	"../glm.hpp"
+	"matrix_transform.inl"
+
+1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\gtc\matrix_transform.inl
+
+1357303585 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.h
+	<vector>
+	<stack>
+	<sstream>
+	"object.h"
+
+1357307121 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.h
+	"glm/glm.hpp"
+	"glm/gtc/matrix_transform.hpp"
+	"global_variables.h"
+
+1357299050 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
+	"scene.h"
+	"object.h"
+	<iostream>
+
+1357297374 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\transform.cpp
+	"Transform.h"
+	<stdio.h>
+
+1357297375 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.cpp
+	"object.h"
+
+1357306875 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<sstream>
+	<deque>
+	<stack>
+	"Transform.h"
+	<FreeImage.h>
+	<stdio.h>
+	"scene_test.cc"
+	"RayTracer.h"
+	"RayTracer_test.cc"
+
+1357299050 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
+	"scene.h"
+	"object.h"
+	<iostream>
+
+1357306971 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.h
+	"scene.h"
+
+1357123116 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\include\freeimage.h
+	<wchar.h>
+	<inttypes.h>
+
+1357308601 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.cpp
+	"config.h"
+	"RayTracer.h"
+
+1357307818 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\config.h
+
+1357303572 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\global_variables.h
+
+1357308371 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
+	"RayTracer.h"
+	<stdio.h>
+
+1357308719 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
+	"RayTracer.h"
+	<stdio.h>
+
