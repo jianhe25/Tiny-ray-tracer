@@ -1,10 +1,5 @@
 #include "config.h"
 #include "RayTracer.h"
-
-
-Ray::Ray(const vec3& _origin, const vec3& _direction) :
-    origin(_origin), direction(_direction) {
-}
     
 Ray RayTracer::GenerateRay(const Camera& camera, int i, int j, int width, int height) {
     vec3 w = glm::normalize(camera.eye - camera.center);
@@ -15,12 +10,12 @@ Ray RayTracer::GenerateRay(const Camera& camera, int i, int j, int width, int he
 	float x_range = tan(fovy / 2.0) * width / height;
 	float a =  x_range * (i - width/2.0) / (width / 2.0);
 	float b = tan(fovy / 2.0) * (j - height/2.0) / (height / 2.0);
-    return Ray(camera.eye, -w + u*a + v*b);
+    return Ray(camera.eye, glm::normalize(-w + u*a + v*b));
 }
 
 Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
-    return BLACK;
-    /*
+    //return BLACK;
+    
     if (depth > RAYTRACE_DEPTH_LIMIT) {
         return BLACK;
     }
@@ -28,9 +23,9 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
     const Object* hit_object;
     for (int i = 0; i < scene.objects.size(); ++i) {
         double dist;
-        if (scene.objects[i].Intersect(ray, &dist) && dist < nearest_dist) {
+        if (scene.objects[i]->Intersect(ray, &dist) && dist < nearest_dist) {
             nearest_dist = dist;
-            hit_object = &scene.objects[i];
+            hit_object = scene.objects[i];
         }
     }
     if (hit_object == NULL)
@@ -53,7 +48,7 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
         color += material.specular * temp_color;
     }
     return color;
-    */
+    
 }
 
 
