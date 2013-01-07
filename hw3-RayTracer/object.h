@@ -2,6 +2,7 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "config.h"
 
 #ifndef _OBJECT_H
 #define _OBJECT_H
@@ -12,8 +13,9 @@ typedef glm::vec3 vec3 ;
 typedef glm::vec4 vec4 ; 
 typedef unsigned char BYTE;
 
-const double eps = 1e-8;
-int sgn(double x) { return x > eps? 1 : x < -eps? -1 : 0; }
+extern const float eps;
+int sgn(float x);
+
 struct Ray {
     vec3 o;
     vec3 direction;
@@ -32,7 +34,7 @@ struct Color
 };
 
 const Color BLACK(0, 0, 0);
-const Color WHITE(255, 255, 255);
+const Color WHITE(1.0, 1.0, 1.0);
 
 
 // Materials (read from file) 
@@ -53,7 +55,8 @@ public:
     shape type; 
     
 	Object() {}
-	virtual bool Intersect(const Ray& ray, double* dis_to_ray);
+	virtual ~Object();
+	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
 };
 
 class Sphere : public Object {
@@ -61,7 +64,9 @@ public:
 	vec3 o;
 	float r;
 	Sphere(const vec3& _o, const float& _r);
-	virtual bool Intersect(const Ray& ray, double* dis_to_ray);
+	
+	virtual ~Sphere();
+	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
 };
 
 class Triangle : public Object {
@@ -76,7 +81,8 @@ public:
 		vec3 na = vec3(0,0,0), 
 		vec3 nb = vec3(0,0,0), 
 		vec3 nc = vec3(0,0,0));
-    Triangle() {}
-    virtual bool Intersect(const Ray& ray, double* dis_to_ray);
+    
+    virtual ~Triangle();
+    virtual bool Intersect(const Ray& ray, float* dis_to_ray);
 };
 #endif // _OBJECT_H

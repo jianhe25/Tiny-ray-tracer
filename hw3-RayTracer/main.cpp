@@ -7,12 +7,15 @@
 #include "Transform.h"
 #include <FreeImage.h>
 #include <stdio.h>
+#include <cassert>
 
 using namespace std;
 
-#include "scene_test.cc"
 #include "RayTracer.h"
+#include "object_test.cc"
+#include "scene_test.cc"
 #include "RayTracer_test.cc"
+
 
 void SaveScreenshot(string fname, BYTE* image, int width, int height) {
 	
@@ -46,6 +49,8 @@ void RunTest() {
     SceneTester::ReadFileTest();
     RayTracerTester ray_tracer_tester;
     ray_tracer_tester.GenerateRayTest();
+    ObjectTester::TriangleIntersectionTest();
+    ObjectTester::SphereIntersectionTest();
 }
 
 int main(int argc, char* argv[]) {

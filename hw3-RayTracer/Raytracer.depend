@@ -1,10 +1,13 @@
 # depslib dependency file v1.0
-1357275745 source:e:\onlinecourse\computergraphics\hw3-raytracer\object.cpp
+1357445546 source:e:\onlinecourse\computergraphics\hw3-raytracer\object.cpp
 	"object.h"
+	<algorithm>
+	<iostream>
 
-1357279105 e:\onlinecourse\computergraphics\hw3-raytracer\object.h
+1357445807 e:\onlinecourse\computergraphics\hw3-raytracer\object.h
 	"glm/glm.hpp"
 	"glm/gtc/matrix_transform.hpp"
+	"config.h"
 
 1340348880 e:\onlinecourse\computergraphics\hw3-raytracer\glm\glm.hpp
 	"core/_fixes.hpp"
@@ -232,7 +235,7 @@
 
 1340348902 e:\onlinecourse\computergraphics\hw3-raytracer\glm\gtc\matrix_transform.inl
 
-1357279295 source:e:\onlinecourse\computergraphics\hw3-raytracer\scene.cpp
+1357444126 source:e:\onlinecourse\computergraphics\hw3-raytracer\scene.cpp
 	<iostream>
 	<string>
 	<fstream>
@@ -242,22 +245,22 @@
 	"Transform.h"
 	"scene.h"
 
-1357230604 e:\onlinecourse\computergraphics\hw3-raytracer\transform.h
+1357440252 e:\onlinecourse\computergraphics\hw3-raytracer\transform.h
 	"glm/glm.hpp"
 	"glm/gtc/matrix_transform.hpp"
 
-1357279121 e:\onlinecourse\computergraphics\hw3-raytracer\scene.h
+1357444068 e:\onlinecourse\computergraphics\hw3-raytracer\scene.h
 	<vector>
 	<stack>
 	<sstream>
 	"object.h"
 
-1357279364 source:e:\onlinecourse\computergraphics\hw3-raytracer\scene_test.cc
+1357438151 source:e:\onlinecourse\computergraphics\hw3-raytracer\scene_test.cc
 	"scene.h"
 	"object.h"
 	<iostream>
 
-1357273888 source:e:\onlinecourse\computergraphics\hw3-raytracer\transform.cpp
+1357440202 source:e:\onlinecourse\computergraphics\hw3-raytracer\transform.cpp
 	"Transform.h"
 	<stdio.h>
 
@@ -564,4 +567,54 @@
 1357308719 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
 	"RayTracer.h"
 	<stdio.h>
+
+1357444765 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
+	"RayTracer.h"
+	<stdio.h>
+
+1357438151 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.h
+	"scene.h"
+
+1357443177 source:e:\onlinecourse\computergraphics\hw3-raytracer\main.cpp
+	<iostream>
+	<string>
+	<fstream>
+	<sstream>
+	<deque>
+	<stack>
+	"Transform.h"
+	<FreeImage.h>
+	<stdio.h>
+	<cassert>
+	"RayTracer.h"
+	"object_test.cc"
+	"scene_test.cc"
+	"RayTracer_test.cc"
+
+1357438151 e:\onlinecourse\computergraphics\hw3-raytracer\include\freeimage.h
+	<wchar.h>
+	<inttypes.h>
+
+1357438151 e:\onlinecourse\computergraphics\hw3-raytracer\scene_test.cc
+	"scene.h"
+	"object.h"
+	<iostream>
+
+1357444765 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
+	"RayTracer.h"
+	<stdio.h>
+
+1357445523 e:\onlinecourse\computergraphics\hw3-raytracer\object_test.cc
+	"object.h"
+	<iostream>
+
+1357442793 e:\onlinecourse\computergraphics\hw3-raytracer\config.h
+
+1357445523 source:e:\onlinecourse\computergraphics\hw3-raytracer\object_test.cc
+	"object.h"
+	<iostream>
+
+1357445851 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.cpp
+	"RayTracer.h"
+	"stdio.h"
 

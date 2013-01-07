@@ -1,6 +1,6 @@
-#include "config.h"
 #include "RayTracer.h"
-    
+#include "stdio.h"
+
 Ray RayTracer::GenerateRay(const Camera& camera, int i, int j, int width, int height) {
     vec3 w = glm::normalize(camera.eye - camera.center);
 	vec3 u = glm::normalize(glm::cross(camera.up, w));
@@ -10,27 +10,29 @@ Ray RayTracer::GenerateRay(const Camera& camera, int i, int j, int width, int he
 	float x_range = tan(fovy / 2.0) * width / height;
 	float a =  x_range * (i - width/2.0) / (width / 2.0);
 	float b = tan(fovy / 2.0) * (j - height/2.0) / (height / 2.0);
-    return Ray(camera.eye, glm::normalize(-w + u*a + v*b));
+    return Ray(camera.eye, -w + u*a + v*b);
 }
 
 Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
-    //return BLACK;
     
     if (depth > RAYTRACE_DEPTH_LIMIT) {
         return BLACK;
     }
-    double nearest_dist = INF;
-    const Object* hit_object;
+    float nearest_dist = INF;
+    const Object* hit_object(NULL);
     for (int i = 0; i < scene.objects.size(); ++i) {
-        double dist;
+        float dist;
         if (scene.objects[i]->Intersect(ray, &dist) && dist < nearest_dist) {
             nearest_dist = dist;
             hit_object = scene.objects[i];
         }
     }
+    //printf("nearest_dist = %.3f\n", nearest_dist);
     if (hit_object == NULL)
         return BLACK;
-
+    else
+        return WHITE;
+/*
     Color color(BLACK);
     Material material = hit_object->material();
     Vec3 normal = hit_object->normal();
@@ -47,8 +49,9 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
         Color temp_color = Trace(reflect_ray, scene, depth+1);
         color += material.specular * temp_color;
     }
+
     return color;
-    
+*/
 }
 
 

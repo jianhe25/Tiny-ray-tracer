@@ -45,10 +45,10 @@
 		<Unit filename="Raytracer.cbp" />
 		<Unit filename="Transform.cpp" />
 		<Unit filename="config.h" />
-		<Unit filename="global_variables.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
+		<Unit filename="object_test.cc" />
 		<Unit filename="scene.cpp" />
 		<Unit filename="scene.h" />
 		<Unit filename="scene1.test" />

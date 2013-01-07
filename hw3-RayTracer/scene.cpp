@@ -75,7 +75,7 @@ void Scene::readfile(const string &filename) {
 		else if (cmd == "attenuation") {
 		    validinput = readvals(s, 3, values);
 		    if (validinput) 
-                attenuation[i] = values[i];
+                for (i = 0; i < 3; ++i) attenuation[i] = values[i];
 		}
 		// materials Commands 
 		// Ambient, diffuse, specular, shininess

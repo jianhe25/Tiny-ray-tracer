@@ -18,7 +18,7 @@ struct Camera {
 		eye(_eye), center(_center), up(_up), fovy(_fovy) {}
 	
 	// Default camera configuration
-	Camera() : eye(0.0,0.0,5.0), up(0.0,1.0,0.0), center(0.0,0.0,0.0) {}
+	Camera() : eye(0.0,0.0,5.0), center(0.0,0.0,0.0), up(0.0,1.0,0.0) {}
 };
 struct Light {
     vec3 positionOrDirection; // Light Positions for point light
