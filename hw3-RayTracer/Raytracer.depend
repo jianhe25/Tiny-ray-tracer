@@ -568,11 +568,11 @@
 	"RayTracer.h"
 	<stdio.h>
 
-1357444765 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
+1357616862 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
 	"RayTracer.h"
 	<stdio.h>
 
-1357438151 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.h
+1357616290 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.h
 	"scene.h"
 
 1357443177 source:e:\onlinecourse\computergraphics\hw3-raytracer\main.cpp
@@ -600,7 +600,7 @@
 	"object.h"
 	<iostream>
 
-1357444765 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
+1357616862 e:\onlinecourse\computergraphics\hw3-raytracer\raytracer_test.cc
 	"RayTracer.h"
 	<stdio.h>
 
@@ -614,7 +614,7 @@
 	"object.h"
 	<iostream>
 
-1357445851 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.cpp
+1357616818 source:e:\onlinecourse\computergraphics\hw3-raytracer\raytracer.cpp
 	"RayTracer.h"
 	"stdio.h"
 

@@ -35,7 +35,7 @@ BYTE* RayTrace (Camera camera, const Scene& scene)  {
 	BYTE* image = new BYTE[3*pix];
 	for (int i = 0 ; i < height ; i++)  
 		for (int j = 0 ; j < width ; j++) { 
-			Ray ray = ray_tracer.GenerateRay(camera, i, j, width, height);
+			Ray ray = ray_tracer.GenerateRay(camera, i, j, height, width);
 			Color color = ray_tracer.Trace(ray, scene, 0);
 			int base = 3 * (i * width + j);
 			image[base + 0] = color.Rbyte();
