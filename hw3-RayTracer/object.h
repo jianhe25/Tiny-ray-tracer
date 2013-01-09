@@ -3,6 +3,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "config.h"
+#include <algorithm>
 
 #ifndef _OBJECT_H
 #define _OBJECT_H
@@ -15,6 +16,7 @@ typedef unsigned char BYTE;
 
 extern const float eps;
 int sgn(float x);
+bool IsSameVector(const vec3& a, const vec3& b);
 
 struct Ray {
     vec3 o;
@@ -27,11 +29,13 @@ struct Color
 	float r, g, b;
 	Color() : r(0), g(0), b(0) {}
 	Color(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
-    BYTE Rbyte() { return r * 255; }
-	BYTE Gbyte() { return g * 255; }
-	BYTE Bbyte() { return b * 255; }
-	bool operator == (const Color &otherColor);
-	Color operator * (const Color& otherColor);
+    BYTE Rbyte() { return std::min(r, 1.0f) * 255; }
+	BYTE Gbyte() { return std::min(g, 1.0f) * 255; }
+	BYTE Bbyte() { return std::min(b, 1.0f) * 255; }
+	bool operator == (const Color& otherColor) const;
+	Color operator * (const Color& otherColor) const;
+	Color operator + (const Color& otherColor) const;
+	Color operator * (const float scale) const;
 };
 
 const Color BLACK(0, 0, 0);
@@ -44,6 +48,7 @@ struct Materials {
 	Color diffuse; 
 	Color specular;
 	Color emission; 
+	Color ambient;
 	float shininess ;
 };
 //static enum {view, translate, scale} transop; // which operation to transform 
@@ -57,8 +62,8 @@ public:
     
 	Object() {}
 	virtual ~Object();
-	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
-	virtual vec3 InterpolatePointNormal(const vec3& point);
+	virtual bool Intersect(const Ray& ray, float* dis_to_ray) const;
+	virtual vec3 InterpolatePointNormal(const vec3& point) const;
 };
 
 class Sphere : public Object {
@@ -68,8 +73,8 @@ public:
 	Sphere(const vec3& _o, const float& _r);
 	
 	virtual ~Sphere();
-	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
-	virtual vec3 InterpolatePointNormal(const vec3& point);
+	virtual bool Intersect(const Ray& ray, float* dis_to_ray) const;
+	virtual vec3 InterpolatePointNormal(const vec3& point) const;
 };
 
 class Triangle : public Object {
@@ -86,7 +91,7 @@ public:
 		vec3 nc = vec3(0,0,0));
     
     virtual ~Triangle();
-    virtual bool Intersect(const Ray& ray, float* dis_to_ray);
-    virtual vec3 InterpolatePointNormal(const vec3& point);
+    virtual bool Intersect(const Ray& ray, float* dis_to_ray) const;
+    virtual vec3 InterpolatePointNormal(const vec3& point) const;
 };
 #endif // _OBJECT_H

@@ -10,6 +10,13 @@
 using namespace std;
 #include "scene.h" 
 
+const vec3& Light::position() const {
+    return positionOrDirection;
+}
+const vec3& Light::direction() const {
+    return positionOrDirection;
+}
+
 void rightmultiply(const mat4 & M, stack<mat4> &transform_stack) {
 	mat4 &T = transform_stack.top() ; 
 	// Right multiply M, but do this left to account for row/column major 
@@ -85,7 +92,7 @@ void Scene::readfile(const string &filename) {
 		else if (cmd == "ambient") {
 			validinput = readvals(s, 3, values) ; // colors 
 			if (validinput) 
-                ambient = Color(values[0], values[1], values[2]); 
+                materials.ambient = Color(values[0], values[1], values[2]); 
 		}
 		else if (cmd == "diffuse") {
 			validinput = readvals(s, 3, values) ; 

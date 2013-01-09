@@ -48,7 +48,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
-		<Unit filename="object_test.cc" />
 		<Unit filename="scene.cpp" />
 		<Unit filename="scene.h" />
 		<Unit filename="scene1.test" />

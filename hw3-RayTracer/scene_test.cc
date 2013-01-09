@@ -20,7 +20,6 @@ namespace SceneTester {
         assert(scene.camera.up == vec3(0,1,0));
         assert(scene.camera.fovy == 30.0);
         
-        assert(scene.ambient == Color(0.1, 0.1, 0.1));
         assert(scene.lights.size() == 2);
         
         assert(scene.lights[0].type == Light::directional);
@@ -33,7 +32,8 @@ namespace SceneTester {
         
         assert(scene.materials.diffuse == Color(1, 0, 0));
         assert(scene.materials.specular == Color(0, 0, 0));
-
+        assert(scene.materials.ambient == Color(0.1, 0.1, 0.1));
+        
 
         assert(scene.vertexBuffer.size() == 4);
         assert(scene.objects.size() == 2);

@@ -12,7 +12,7 @@
 using namespace std;
 
 #include "RayTracer.h"
-#include "object_test.cc"
+//#include "object_test.cc"
 #include "scene_test.cc"
 #include "RayTracer_test.cc"
 
@@ -35,12 +35,13 @@ BYTE* RayTrace (Camera camera, const Scene& scene)  {
 	BYTE* image = new BYTE[3*pix];
 	for (int i = 0 ; i < height ; i++)  
 		for (int j = 0 ; j < width ; j++) { 
+		    
 			Ray ray = ray_tracer.GenerateRay(camera, i, j, height, width);
 			Color color = ray_tracer.Trace(ray, scene, 0);
 			int base = 3 * (i * width + j);
-			image[base + 0] = color.Rbyte();
+			image[base + 0] = color.Bbyte();
 			image[base + 1] = color.Gbyte();
-			image[base + 2] = color.Bbyte();
+			image[base + 2] = color.Rbyte();
 		}
 	return image;
 }
@@ -49,11 +50,13 @@ void RunTest() {
     SceneTester::ReadFileTest();
     RayTracerTester ray_tracer_tester;
     ray_tracer_tester.GenerateRayTest();
-    ObjectTester::TriangleIntersectionTest();
-    ObjectTester::SphereIntersectionTest();
+//    ObjectTester::TriangleIntersectionTest();
+//    ObjectTester::SphereIntersectionTest();
 }
 
 int main(int argc, char* argv[]) {
+    freopen("debug.txt","w",stdout);
+    
     RunTest();
 	if (argc < 2) {
 		cerr << "Usage: transforms scenefile [grader input (optional)]\n"; 

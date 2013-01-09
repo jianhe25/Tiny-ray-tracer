@@ -264,7 +264,7 @@
 	"Transform.h"
 	<stdio.h>
 
-1357702250 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.cpp
+1357734979 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.cpp
 	<iostream>
 	<string>
 	<fstream>
@@ -504,18 +504,19 @@
 
 1357297374 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\glm\gtc\matrix_transform.inl
 
-1357702250 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.h
+1357734871 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene.h
 	<vector>
 	<stack>
 	<sstream>
 	"object.h"
 
-1357717824 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.h
+1357734919 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.h
 	"glm/glm.hpp"
 	"glm/gtc/matrix_transform.hpp"
 	"config.h"
+	<algorithm>
 
-1357299050 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
+1357735027 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
 	"scene.h"
 	"object.h"
 	<iostream>
@@ -524,10 +525,13 @@
 	"Transform.h"
 	<stdio.h>
 
-1357297375 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.cpp
+1357725880 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\object.cpp
 	"object.h"
+	<algorithm>
+	<iostream>
+	<stdio.h>
 
-1357702250 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\main.cpp
+1357725445 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\main.cpp
 	<iostream>
 	<string>
 	<fstream>
@@ -539,35 +543,34 @@
 	<stdio.h>
 	<cassert>
 	"RayTracer.h"
-	"object_test.cc"
 	"scene_test.cc"
 	"RayTracer_test.cc"
 
-1357299050 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
+1357735027 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\scene_test.cc
 	"scene.h"
 	"object.h"
 	<iostream>
 
-1357718214 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.h
+1357723223 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.h
 	"scene.h"
 
 1357123116 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\include\freeimage.h
 	<wchar.h>
 	<inttypes.h>
 
-1357308601 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.cpp
-	"config.h"
+1357741063 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer.cpp
 	"RayTracer.h"
+	"stdio.h"
 
 1357702250 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\config.h
 
 1357303572 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\global_variables.h
 
-1357702250 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
+1357719904 source:e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
 	"RayTracer.h"
 	<stdio.h>
 
-1357718278 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
+1357719904 e:\hejian\computer_graphics\computergraphics-berkeley-cs184\hw3-raytracer\raytracer_test.cc
 	"RayTracer.h"
 	<stdio.h>
 

@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="RayTracer.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="2305" topLine="35" />
+	<File name="RayTracer.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="2575" topLine="51" />
 	</File>
-	<File name="RayTracer.h" open="1" top="0" tabpos="3">
-		<Cursor position="313" topLine="0" />
+	<File name="RayTracer.h" open="0" top="0" tabpos="4">
+		<Cursor position="89" topLine="0" />
 	</File>
-	<File name="RayTracer_test.cc" open="1" top="0" tabpos="6">
-		<Cursor position="762" topLine="0" />
+	<File name="RayTracer_test.cc" open="0" top="0" tabpos="6">
+		<Cursor position="762" topLine="3" />
 	</File>
 	<File name="Transform.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1014" topLine="10" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="279" topLine="3" />
+	<File name="main.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="815" topLine="27" />
 	</File>
-	<File name="object.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="1809" topLine="48" />
+	<File name="object.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="258" topLine="0" />
 	</File>
-	<File name="object.h" open="1" top="0" tabpos="4">
-		<Cursor position="775" topLine="18" />
-	</File>
-	<File name="object_test.cc" open="1" top="0" tabpos="1">
-		<Cursor position="739" topLine="2" />
+	<File name="object.h" open="0" top="0" tabpos="7">
+		<Cursor position="425" topLine="7" />
 	</File>
 	<File name="scene.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="5584" topLine="33" />
+		<Cursor position="346" topLine="0" />
 	</File>
 	<File name="scene.h" open="0" top="0" tabpos="3">
-		<Cursor position="1251" topLine="36" />
+		<Cursor position="840" topLine="15" />
 	</File>
 	<File name="scene1.test" open="1" top="0" tabpos="1">
-		<Cursor position="613" topLine="6" />
+		<Cursor position="613" topLine="0" />
 	</File>
-	<File name="scene_test.cc" open="0" top="0" tabpos="1">
-		<Cursor position="87" topLine="0" />
+	<File name="scene_test.cc" open="1" top="0" tabpos="3">
+		<Cursor position="202" topLine="0" />
 	</File>
 	<File name="transform.h" open="0" top="0" tabpos="0">
 		<Cursor position="585" topLine="8" />

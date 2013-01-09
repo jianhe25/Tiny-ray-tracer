@@ -27,6 +27,8 @@ struct Light {
  	
  	enum Type {directional, point};
  	Type type;
+ 	const vec3& position() const;
+ 	const vec3& direction() const;
 };
 
 class Scene
@@ -48,7 +50,6 @@ public:
 	vector<Light> lights;
 
  	Materials materials; // This is global material
-    Color ambient;    // Ambient is global material
     float attenuation[3]; // Global attenuation
     
 	// For multiple objects, read from a file.  
