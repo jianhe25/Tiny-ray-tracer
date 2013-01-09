@@ -8,5 +8,7 @@ public:
     Color Trace(const Ray& ray, const Scene& scene, int depth);
     Ray GenerateRay(const Camera& camera, int i, int j, int height, int width);
     bool IsBlocked(const Ray& ray, const Scene& scene);
+    Color CalcLight(const Light& light, const Object* hit_object, 
+        const Ray& ray, const vec3& hit_point);
 };
 #endif // _RAY_TRACER_H_

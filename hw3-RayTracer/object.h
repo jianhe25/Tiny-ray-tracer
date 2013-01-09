@@ -31,6 +31,7 @@ struct Color
 	BYTE Gbyte() { return g * 255; }
 	BYTE Bbyte() { return b * 255; }
 	bool operator == (const Color &otherColor);
+	Color operator * (const Color& otherColor);
 };
 
 const Color BLACK(0, 0, 0);
@@ -57,6 +58,7 @@ public:
 	Object() {}
 	virtual ~Object();
 	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
+	virtual vec3 InterpolatePointNormal(const vec3& point);
 };
 
 class Sphere : public Object {
@@ -67,6 +69,7 @@ public:
 	
 	virtual ~Sphere();
 	virtual bool Intersect(const Ray& ray, float* dis_to_ray);
+	virtual vec3 InterpolatePointNormal(const vec3& point);
 };
 
 class Triangle : public Object {
@@ -84,5 +87,6 @@ public:
     
     virtual ~Triangle();
     virtual bool Intersect(const Ray& ray, float* dis_to_ray);
+    virtual vec3 InterpolatePointNormal(const vec3& point);
 };
 #endif // _OBJECT_H

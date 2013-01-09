@@ -13,6 +13,11 @@ bool Object::Intersect(const Ray& ray, float* dis_to_ray) {
     throw 2; // This should never happen
 }
 
+vec3 Object::InterpolatePointNormal(const vec3& point) {
+    std::cerr << "Can't interpolate normal in abstract object" << std::endl;
+    throw 2;
+}
+
 Sphere::Sphere(const vec3& _o, const float& _r) :
 	o(_o), r(_r) {
 }
@@ -39,10 +44,18 @@ bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) {
     }
 }
 
+vec3 Sphere::InterpolatePointNormal(const vec3& point) {
+    assert(sgn(glm::length(point - this->o) - this->r) == 0); // ensure point on the surface
+    return glm::normalize(point - this->o);
+}
 
 bool Color::operator == (const Color &otherColor) {
     return r == otherColor.r && g == otherColor.g && b == otherColor.b;
 }
+Color Color::operator * (const Color& otherColor) {
+    return Color(r * otherColor.r, g * otherColor.g, b * otherColor.b);
+}
+
 Triangle::Triangle(
     const vec3& _a, 
     const vec3& _b, 
@@ -59,11 +72,17 @@ Triangle::Triangle(
         a = _a;
         b = _b;
         c = _c;
-        na = _na;
-        nb = _nb;
-        nc = _nc;
         type = triangle;
+        // no specified normal
+        if (_na == vec3(0,0,0)) {
+            na = nb = nc = glm::cross(b-a, c-a);
+        } else {
+            na = _na;
+            nb = _nb;
+            nc = _nc;
+        }
     };
+
 bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) {
     vec3 n = glm::normalize(glm::cross(b-a, c-a));
     const vec3& p = ray.o;
@@ -92,6 +111,17 @@ bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) {
     } else
         return false;
 }
+vec3 Triangle::InterpolatePointNormal(const vec3& point) {
+    vec3 n = glm::cross(a-b, a-c);
+    vec3 tmp_nb = glm::cross(c-point, a-point);
+    vec3 tmp_nc = glm::cross(a-point, b-point);
+    
+    float beta = glm::dot(n, tmp_nb) / glm::dot(n,n);
+    float gamma = glm::dot(n, tmp_nc) / glm::dot(n,n);
+    float alpha = 1.0 - beta - gamma;
+    return (na * alpha) + (nb * beta) + (nc * gamma);
+}
+
 Object::~Object() {
 }
 Triangle::~Triangle() {

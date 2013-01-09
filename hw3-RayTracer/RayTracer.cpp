@@ -40,8 +40,7 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
     if (!GetIntersect(ray, scene, hit_object, &nearest_dist))
         return BLACK;
     
-    Color color(BLACK);
-    Materials materials = hit_object->materials;
+    Color color(scene.ambient);
     Point hit_point = ray.o + ray.direction * nearest_dist;
     for (int i = 0; i < scene.lights.size(); ++i) {
         Ray light_ray(lights[i], hit_point-light[i]);
@@ -50,24 +49,39 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
         GetIntersect(light_ray, scene, tmp_obj, &tmp_dist);
         assert(tmp_obj != NULL);
         if (sgn(tmp_dist - nearest_dist) == 0) {
-            color += CalcLight(scene.lights[i], materials, hit_object, ray, hit_point);
+            color += CalcLight(scene.lights[i], hit_object, ray, hit_point);
         }
     }
-
+    
+/*
     if (materials.specular > 0) {
         Ray reflect_ray = ray.CreateReflectRay(hit_point, normal);
         // Make a recursive call to trace the reflected ray
         Color temp_color = Trace(reflect_ray, scene, depth+1);
         color += materials.specular * temp_color;
     }
-
+*/
     return color;
-
 }
 
-Color RayTracer::CalcLight(const Light& light, const Materials& materials, 
-    const Object* hit_object, const Ray& ray, const vec3& hit_point) {
+Color RayTracer::CalcLight(const Light& light, const Object* hit_object, const Ray& ray, const vec3& hit_point) {
     
+    vec3 light_direction;
+    if (light.type == Light::point) {
+        light_direction = glm::normalize(light.positionOrDirection - hit_point);
+    } else 
+        light_direction = glm::normalize(light.positionOrDirection);
     
+    vec3 normal = hit_object->InterpolatePointNormal(hit_point);
+    
+    const Materials& materials = hit_object->materials;
+	float nDotL = max(glm::dot(normal, light_direction), 0.0);
+	vec3 diffuse = materials.diffuse * light.color * nDotL;
+    
+    vec3 halfvec = glm::normalize(light_direction + ray.direction);
+	float nDotH = max(glm::dot(normal, halfvec), 0.0);
+	vec3 specular = materials.specular * light.color * pow(nDotH, materials.shininess);
+	
+	return diffuse + specular;
 }
 

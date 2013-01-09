@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="RayTracer.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="2390" topLine="49" />
+	<File name="RayTracer.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="2305" topLine="35" />
 	</File>
-	<File name="RayTracer.h" open="1" top="0" tabpos="5">
-		<Cursor position="264" topLine="0" />
+	<File name="RayTracer.h" open="1" top="0" tabpos="3">
+		<Cursor position="313" topLine="0" />
 	</File>
-	<File name="RayTracer_test.cc" open="0" top="0" tabpos="2">
-		<Cursor position="512" topLine="0" />
+	<File name="RayTracer_test.cc" open="1" top="0" tabpos="6">
+		<Cursor position="762" topLine="0" />
 	</File>
 	<File name="Transform.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1014" topLine="10" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="717" topLine="21" />
+	<File name="main.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="279" topLine="3" />
 	</File>
-	<File name="object.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="879" topLine="6" />
+	<File name="object.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1809" topLine="48" />
 	</File>
-	<File name="object.h" open="1" top="0" tabpos="6">
-		<Cursor position="1116" topLine="39" />
+	<File name="object.h" open="1" top="0" tabpos="4">
+		<Cursor position="775" topLine="18" />
 	</File>
 	<File name="object_test.cc" open="1" top="0" tabpos="1">
 		<Cursor position="739" topLine="2" />
@@ -31,7 +31,7 @@
 	<File name="scene.h" open="0" top="0" tabpos="3">
 		<Cursor position="1251" topLine="36" />
 	</File>
-	<File name="scene1.test" open="1" top="0" tabpos="3">
+	<File name="scene1.test" open="1" top="0" tabpos="1">
 		<Cursor position="613" topLine="6" />
 	</File>
 	<File name="scene_test.cc" open="0" top="0" tabpos="1">
