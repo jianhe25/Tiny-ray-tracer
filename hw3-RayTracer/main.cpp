@@ -35,13 +35,15 @@ BYTE* RayTrace (Camera camera, const Scene& scene)  {
 	BYTE* image = new BYTE[3*pix];
 	for (int i = 0 ; i < height ; i++)  
 		for (int j = 0 ; j < width ; j++) { 
-		    
 			Ray ray = ray_tracer.GenerateRay(camera, i, j, height, width);
 			Color color = ray_tracer.Trace(ray, scene, 0);
 			int base = 3 * (i * width + j);
 			image[base + 0] = color.Bbyte();
 			image[base + 1] = color.Gbyte();
 			image[base + 2] = color.Rbyte();
+			
+			if (i > 360 && i < 370 && j > 160 && j < 170)
+                printf("color[%d][%d] = (%f, %f, %f)\n", i, j, color.r, color.g, color.b);
 		}
 	return image;
 }

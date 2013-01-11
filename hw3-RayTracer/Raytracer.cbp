@@ -12,7 +12,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="scene1.test" />
+				<Option parameters="scene2.test" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />

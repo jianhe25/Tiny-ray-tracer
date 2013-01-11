@@ -9,8 +9,6 @@ public:
     
     Ray GenerateRay(const Camera& camera, int i, int j, int height, int width);
     
-    bool IsBlocked(const Ray& ray, const Scene& scene);
-    
     bool GetIntersection(const Ray& ray, const Scene& scene, 
                     const Object* &hit_object, float* nearest_dist);
                  

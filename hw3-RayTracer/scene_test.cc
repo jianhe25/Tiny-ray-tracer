@@ -7,14 +7,7 @@ namespace SceneTester {
         
         Scene scene;
         scene.readfile(file_name);
-        /*
-        Object object = Triangle();
-        Triangle* test = dynamic_cast<Triangle*>(&object);
-        if (test == 0) {
-            cout << "omg" << endl;
-            return 0;
-        }
-        */
+    
         assert(scene.camera.eye == vec3(-4,-4,4));
         assert(scene.camera.center == vec3(1,0,0));
         assert(scene.camera.up == vec3(0,1,0));

@@ -27,7 +27,7 @@ struct Ray {
 struct Color
 {
 	float r, g, b;
-	Color() : r(0), g(0), b(0) {}
+	Color() : r(0.0), g(0.0), b(0.0) {}
 	Color(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
     BYTE Rbyte() { return std::min(r, 1.0f) * 255; }
 	BYTE Gbyte() { return std::min(g, 1.0f) * 255; }
@@ -49,7 +49,7 @@ struct Materials {
 	Color specular;
 	Color emission; 
 	Color ambient;
-	float shininess ;
+	float shininess;
 };
 //static enum {view, translate, scale} transop; // which operation to transform 
 class Object {
@@ -60,7 +60,7 @@ public:
     enum shape {triangle, sphere} ;
     shape type; 
     
-	Object() {}
+	Object();
 	virtual ~Object();
 	virtual bool Intersect(const Ray& ray, float* dis_to_ray) const;
 	virtual vec3 InterpolatePointNormal(const vec3& point) const;

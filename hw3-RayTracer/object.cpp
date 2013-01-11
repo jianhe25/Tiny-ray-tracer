@@ -24,7 +24,12 @@ Color Color::operator * (const float scale) const {
 
 
 Ray::Ray(const vec3& _o, const vec3& _direction) :
-    o(_o), direction(glm::normalize(_direction)) {
+    o(_o), direction(_direction) {
+}
+
+Object::Object() {
+    //std::cerr << "The constructor of abstract object should not be called" << std::endl;
+    //throw 2;
 }
 bool Object::Intersect(const Ray& ray, float* dis_to_ray) const {
     std::cerr << "Ray should not intersect with abstract object" << std::endl;
@@ -38,29 +43,29 @@ vec3 Object::InterpolatePointNormal(const vec3& point) const {
 
 Sphere::Sphere(const vec3& _o, const float& _r) :
 	o(_o), r(_r) {
+    type = sphere;
+}
+double dot(vec3 a, vec3 b) {
+    return (double)a.x*b.x + (double)a.y*b.y + (double)a.z*b.z;
 }
 bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) const {
     //dir^2 * t^2 + 2*dir*(p-o)*t + (p-o)^2 == r*r;
     const vec3& dir = ray.direction;
     const vec3& p = ray.o;
-    float c2 = glm::dot(dir, dir);
-    float c1 = 2 * glm::dot(dir, p-o);
-    float c0 = glm::dot(p-o, p-o) - r*r;
-    float delta = c1*c1 - 4*c2*c0;
-    if (sgn(delta) < 0) {
+    double c2 = glm::dot(dir, dir);
+    double c1 = 2 * glm::dot(dir, p-o);
+    double c0 = glm::dot(p-o, p-o) - r*r;
+    double delta = c1*c1 - 4*c2*c0;
+    if (delta < -1e-6) {
         return false;
     }
     
     delta = abs(delta);
     // closest intersection point
-    float x = std::min((-c1 - sqrt(delta)) / (2*c2), 
+    double x = std::min((-c1 - sqrt(delta)) / (2*c2), 
                    (-c1 + sqrt(delta)) / (2*c2));
     
-    if (o == vec3(-0.5, -0.5, 1.0)) {
-        printf("%f %f %f\n",o.x, o.y, o.z);
-        printf("x = %f %f %f\n",x, (-c1 - sqrt(delta)) / (2*c2), (-c1 + sqrt(delta)) / (2*c2));
-    }
-    if (x < eps) {
+    if (x < -eps) {
         return false;
     } else {
         *dis_to_ray = x;

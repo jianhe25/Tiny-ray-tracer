@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="RayTracer.cpp" open="1" top="1" tabpos="5">
-		<Cursor position="2575" topLine="51" />
+		<Cursor position="1425" topLine="32" />
 	</File>
 	<File name="RayTracer.h" open="0" top="0" tabpos="4">
 		<Cursor position="89" topLine="0" />
@@ -14,7 +14,7 @@
 		<Cursor position="1014" topLine="10" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="815" topLine="27" />
+		<Cursor position="609" topLine="13" />
 	</File>
 	<File name="object.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="258" topLine="0" />

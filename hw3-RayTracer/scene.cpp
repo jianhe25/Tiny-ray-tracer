@@ -150,6 +150,7 @@ void Scene::readfile(const string &filename) {
 			if (validinput) {
 				Triangle* triangle = new Triangle(
                     vertexBuffer[values[0]], vertexBuffer[values[1]], vertexBuffer[values[2]]);
+				//printf("triangle.shineness = %f\n",triangle->materials.shininess);
 				objects.push_back(triangle);
 				objects.back()->materials = materials;
 				objects.back()->transform = transform_stack.top();

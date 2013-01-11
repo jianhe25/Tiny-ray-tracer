@@ -8,7 +8,7 @@ Ray RayTracer::GenerateRay(const Camera& camera, int i, int j, int height, int w
 	
 	float fovy = camera.fovy * PI / 180.0; // degree to radian
 	float x_range = tan(fovy / 2.0) * width / height;
-	float b = tan(fovy / 2.0) * (i - height/2.0) / (height / 2.0);
+	float b = tan(fovy / 2.0) * (height/2.0 - i) / (height / 2.0);
 	float a =  x_range * (j - width/2.0) / (width / 2.0);
     return Ray(camera.eye, -w + u*a + v*b);
 }
@@ -30,34 +30,35 @@ bool RayTracer::GetIntersection(const Ray& ray, const Scene& scene, const Object
 }
 int debugCount = 0;
 
-void debug(Color color) {
-    printf("(%.2f %.2f %.2f)\n",color.r, color.g, color.b);
+void debug(Color color, char* msg = "") {
+    printf("%s (%.2f %.2f %.2f)\n",msg, color.r, color.g, color.b);
 }
-void debug(vec3 vec) {
-    printf("(%.2f %.2f %.2f)\n",vec.x, vec.y, vec.z);
+void debug(vec3 vec, char* msg = "") {
+    printf("%s (%.2f %.2f %.2f)\n",msg, vec.x, vec.y, vec.z);
 }
 Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
     
     if (depth > RAYTRACE_DEPTH_LIMIT) {
         return BLACK;
     }
-    
     float nearest_dist;
     const Object* hit_object;
     if (!GetIntersection(ray, scene, hit_object, &nearest_dist))
         return BLACK;
-    
-    if (ray.direction == vec3(0,0,-1)) {
+    /*
+    {
+        printf("ray.direction = "); debug(ray.direction);
         printf("nearest_dist = %f\n",nearest_dist);
         if (hit_object->type == Object::sphere)
             printf("sphere\n");
         else
             printf("triangle\n");
     }
-    
+    */
     Color color(hit_object->materials.ambient);
     vec3 hit_point = ray.o + ray.direction * nearest_dist;
-    
+    if (++debugCount < 10)
+        debug(color);
     //printf("light number = %d\n", (int)scene.lights.size());
     for (int i = 0; i < (int)scene.lights.size(); ++i) {
         if (scene.lights[i].type == Light::point) {
@@ -78,7 +79,9 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth) {
              //   printf("tmp_dist = %.2f %.2f\n",tmp_dist, nearest_dist);
             if (IsSameVector(hit_point, light_hit)) {
                 //puts("point light source");
+                //debug(color);
                 color = color + CalcLight(scene.lights[i], hit_object, ray, hit_point);
+                //printf("add calcLight "); debug(color);
             }
         } else {
             color = color + CalcLight(scene.lights[i], hit_object, ray, hit_point);
@@ -116,11 +119,12 @@ Color RayTracer::CalcLight(const Light& light, const Object* hit_object, const R
 	float nDotL = max(glm::dot(normal, light_direction), 0.0f);
 	Color diffuse = materials.diffuse * light.color * nDotL;
     
-    vec3 halfvec = glm::normalize(light_direction + ray.direction);
+    vec3 halfvec = glm::normalize(light_direction + glm::normalize(ray.direction));
 	float nDotH = max(glm::dot(normal, halfvec), 0.0f);
 	Color specular = materials.specular * light.color * pow(nDotH, materials.shininess);
 	
-	
+	debug(materials.specular, "specular ");
+	printf("materials.shininess = %f\n",materials.shininess);
 	return diffuse + specular;
 }
 
