@@ -21,7 +21,7 @@ Color Color::operator + (const Color& otherColor) const {
 Color Color::operator * (const float scale) const {
     return Color(r * scale, g * scale, b * scale);
 }
-
+Materials::Materials() : shininess(0.0) {}
 
 Ray::Ray(const vec3& _o, const vec3& _direction) :
     o(_o), direction(_direction) {
@@ -52,17 +52,18 @@ bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) const {
     //dir^2 * t^2 + 2*dir*(p-o)*t + (p-o)^2 == r*r;
     const vec3& dir = ray.direction;
     const vec3& p = ray.o;
-    double c2 = glm::dot(dir, dir);
-    double c1 = 2 * glm::dot(dir, p-o);
-    double c0 = glm::dot(p-o, p-o) - r*r;
-    double delta = c1*c1 - 4*c2*c0;
-    if (delta < -1e-6) {
+    float c2 = glm::dot(dir, dir);
+    float c1 = 2 * glm::dot(dir, p-o);
+    float c0 = glm::dot(p-o, p-o) - r*r;
+    float delta = c1*c1 - 4*c2*c0;
+
+    if (delta < -eps) {
         return false;
     }
-    
-    delta = abs(delta);
+
+    delta = fabs(delta);    
     // closest intersection point
-    double x = std::min((-c1 - sqrt(delta)) / (2*c2), 
+    float x = std::min((-c1 - sqrt(delta)) / (2*c2), 
                    (-c1 + sqrt(delta)) / (2*c2));
     
     if (x < -eps) {
@@ -72,11 +73,19 @@ bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) const {
         return true;
     }
 }
-
+vec3 vec3TimeMat4(const vec3& a, const mat4& mat) {
+    vec4 a_ex = vec4(a, 1.0) * mat;
+    return vec3(a_ex.x / a_ex.w, a_ex.y / a_ex.w, a_ex.z / a_ex.w);
+}
+vec3 ray3TimeMat4(const vec3& a, const mat4& mat) {
+    vec4 a_ex = vec4(a, 0.0) * mat;
+    return vec3(a_ex.x, a_ex.y, a_ex.z);
+}
 vec3 Sphere::InterpolatePointNormal(const vec3& point) const {
     //printf("distance = %f\n",glm::length(point - this->o) - this->r);
-    assert(fabs(glm::length(point - this->o) - this->r) < 1); // ensure point on the surface
-    return point - this->o;
+    //assert(fabs(glm::length(point - this->o) - this->r) < 1); // ensure point on the surface
+    vec3 p = vec3TimeMat4(point, this->InversedTransform);
+    return ray3TimeMat4(p-o, this->transform);
 }
 
 Triangle::Triangle(
@@ -107,7 +116,7 @@ Triangle::Triangle(
     };
 
 bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) const {
-    vec3 n = glm::normalize(glm::cross(b-a, c-a));
+    vec3 n = glm::cross(b-a, c-a);
     const vec3& p = ray.o;
     const vec3& dir = ray.direction;
     
@@ -122,6 +131,7 @@ bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) const {
     
     // check if p0 in triangle, because triangle is convex.
     // if p0 in triangle, then absolute area equals to area_vec length, otherwise not.
+    
     vec3 area_vec(0,0,0);
     float abs_area = 0.0;
     for (int i = 0; i < 3; ++i) {
@@ -129,21 +139,31 @@ bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) const {
         area_vec += glm::cross(p0-vertexes[i], p0-vertexes[(i+1)%3]);
     }
     
-    if (sgn(abs_area - glm::length(area_vec)) == 0) {
+    vec3 tmp_nb = glm::cross(c-p0, a-p0);
+    vec3 tmp_nc = glm::cross(a-p0, b-p0);
+    
+    float beta = glm::dot(n, tmp_nb) / glm::dot(n, n);
+    float gamma = glm::dot(n, tmp_nc) / glm::dot(n, n);
+    float alpha = 1.0 - beta - gamma;
+    
+    if (beta > -eps && beta < 1.0+eps && gamma > -eps && gamma < 1.0+eps 
+        && alpha > -eps && alpha < 1.0+eps) {
         *dis_to_ray = t;
         return true;
     } else
         return false;
 }
 vec3 Triangle::InterpolatePointNormal(const vec3& point) const {
-    vec3 n = glm::cross(a-b, a-c);
-    vec3 tmp_nb = glm::cross(c-point, a-point);
-    vec3 tmp_nc = glm::cross(a-point, b-point);
+    vec3 p = vec3TimeMat4(point, this->InversedTransform);
+    vec3 n = glm::cross(b-a, c-a);
+    vec3 tmp_nb = glm::cross(c-p, a-p);
+    vec3 tmp_nc = glm::cross(a-p, b-p);
     
     float beta = glm::dot(n, tmp_nb) / glm::dot(n,n);
     float gamma = glm::dot(n, tmp_nc) / glm::dot(n,n);
     float alpha = 1.0 - beta - gamma;
-    return (na * alpha) + (nb * beta) + (nc * gamma);
+    vec3 ret = (na * alpha) + (nb * beta) + (nc * gamma);
+    return ray3TimeMat4(ret, this->transform);
 }
 
 Object::~Object() {

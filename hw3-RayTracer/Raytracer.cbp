@@ -12,7 +12,7 @@
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="scene2.test" />
+				<Option parameters="scene4-diffuse.test" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
@@ -51,6 +51,7 @@
 		<Unit filename="scene.cpp" />
 		<Unit filename="scene.h" />
 		<Unit filename="scene1.test" />
+		<Unit filename="scene2.test" />
 		<Unit filename="scene_test.cc" />
 		<Unit filename="transform.h" />
 		<Extensions>

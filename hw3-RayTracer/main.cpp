@@ -36,14 +36,13 @@ BYTE* RayTrace (Camera camera, const Scene& scene)  {
 	for (int i = 0 ; i < height ; i++)  
 		for (int j = 0 ; j < width ; j++) { 
 			Ray ray = ray_tracer.GenerateRay(camera, i, j, height, width);
-			Color color = ray_tracer.Trace(ray, scene, 0);
-			int base = 3 * (i * width + j);
+			Color color = ray_tracer.Trace(ray, scene, 0, i, j);
+			int base = 3 * ((height-i-1) * width + j);
 			image[base + 0] = color.Bbyte();
 			image[base + 1] = color.Gbyte();
 			image[base + 2] = color.Rbyte();
-			
-			if (i > 360 && i < 370 && j > 160 && j < 170)
-                printf("color[%d][%d] = (%f, %f, %f)\n", i, j, color.r, color.g, color.b);
+			if (i % 40 == 0 && j == 0)
+                printf("%d %d\n",i, j);
 		}
 	return image;
 }
@@ -55,9 +54,15 @@ void RunTest() {
 //    ObjectTester::TriangleIntersectionTest();
 //    ObjectTester::SphereIntersectionTest();
 }
-
+void debug(mat4 mat) {
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j)
+            printf("%f ",mat[i][j]);
+        puts("");
+    }
+}
 int main(int argc, char* argv[]) {
-    freopen("debug.txt","w",stdout);
+    //freopen("debug.txt","w",stdout);
     
     RunTest();
 	if (argc < 2) {
@@ -67,10 +72,11 @@ int main(int argc, char* argv[]) {
   	FreeImage_Initialise();
 	
 	Scene scene;
+	scene.outputFile = "result.png";
     scene.readfile(argv[1]);
     
     BYTE* image = RayTrace(scene.camera, scene);
-    SaveScreenshot("result.png", image, scene.width, scene.height);
+    SaveScreenshot(scene.outputFile, image, scene.width, scene.height);
     delete image;
     
 	FreeImage_DeInitialise();

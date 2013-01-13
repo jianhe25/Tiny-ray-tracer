@@ -41,10 +41,12 @@ public:
 	~Scene();
 
 	void readfile (const string &filename);
+	string outputFile;
+	
 	Camera camera; 
 	
 	int maxDepth; 	   // max depth of ray tracing
-
+    
     int width, height;
 	// Lighting parameter array, similar to that in the fragment shader
 	vector<Light> lights;

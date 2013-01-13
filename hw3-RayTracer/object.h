@@ -50,13 +50,17 @@ struct Materials {
 	Color emission; 
 	Color ambient;
 	float shininess;
+	Materials();
 };
 //static enum {view, translate, scale} transop; // which operation to transform 
 class Object {
 public:
   	mat4 transform; 
+  	mat4 InversedTransform;
   	Materials materials;	
-
+    
+    int index; // Identify the object for debugging.
+    
     enum shape {triangle, sphere} ;
     shape type; 
     

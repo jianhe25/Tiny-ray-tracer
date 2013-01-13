@@ -10,14 +10,13 @@
 # primitives.  In any case, getting the geometry right is the point of this 
 # exercise, not the shading.
 
-size 480 640
+size 640 480 
 
 # There are 3 camera positions.  Make images for all 3
 
-camera 0 0 5 0 0 0 0 1 0 60
 #camera -2 -2 2 0 0 0 1 1 2 60
 #camera +2 +2 2 0 0 0 -1 -1 2 60
-#camera -2 -2 -2 0 0 0 -1 -1 2 60
+camera -2 -2 -2 0 0 0 -1 -1 2 60
 
 
 # Now specify the geometry.  First the cube, then the spheres
@@ -72,7 +71,7 @@ sphere -.5 1 -.5 0.15
 sphere +.5 1 +.5 0.15
 
 sphere 0 0 1 0.15
-sphere -.5 -.5 1 0.5
+sphere -.5 -.5 1 0.15
 sphere +.5 +.5 1 0.15
 
 sphere -1 -.5 -.5 0.15

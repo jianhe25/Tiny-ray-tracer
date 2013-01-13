@@ -62,10 +62,13 @@ void Scene::readfile(const string &filename) {
 		float values[10]; // position and color for light, colors for others
 		// Up to 10 params for cameras.  
 		bool validinput ; // validity of input 
-
+        
+        if (cmd == "output") {
+            s >> outputFile;
+        }
 		// Process the light, add it to database.
 		// directional light
-		if (cmd == "directional" || cmd == "point") {
+		else if (cmd == "directional" || cmd == "point") {
             validinput = readvals(s, 6, values) ; // Position/color for lts.
             if (validinput) {
                 Light light;
@@ -152,8 +155,10 @@ void Scene::readfile(const string &filename) {
                     vertexBuffer[values[0]], vertexBuffer[values[1]], vertexBuffer[values[2]]);
 				//printf("triangle.shineness = %f\n",triangle->materials.shininess);
 				objects.push_back(triangle);
+				objects.back()->index = objects.size();
 				objects.back()->materials = materials;
 				objects.back()->transform = transform_stack.top();
+				objects.back()->InversedTransform = glm::inverse(transform_stack.top());
 			}
 		}
 		else if (cmd == "trinormal") {
@@ -167,8 +172,10 @@ void Scene::readfile(const string &filename) {
 						vertexNormalBuffer[values[2]]
 						);
 				objects.push_back(triangle);
+				objects.back()->index = objects.size();
 				objects.back()->materials = materials;
 				objects.back()->transform = transform_stack.top();
+				objects.back()->InversedTransform = glm::inverse(transform_stack.top());
 			}
 		}
 
@@ -176,8 +183,10 @@ void Scene::readfile(const string &filename) {
 			validinput = readvals(s, 4, values);
 			Sphere* sphere = new Sphere(vec3(values[0], values[1], values[2]), values[3]);
 			objects.push_back(sphere);
+			objects.back()->index = objects.size();
             objects.back()->materials = materials;
             objects.back()->transform = transform_stack.top();
+            objects.back()->InversedTransform = glm::inverse(transform_stack.top());
 		}
 		
 		else if (cmd == "maxverts" || cmd == "maxvertnorms") { // just ignore
