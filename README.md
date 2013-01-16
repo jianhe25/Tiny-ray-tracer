@@ -8,8 +8,10 @@ Following are some pictures rendered by my raytracer. (The scene file of these p
 ![4 balls](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene4-specular.png)
 
 * Cornell box
+
 ![Cornell box](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene6.png)
 
 * Dragon
+
 ![Dragon](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene7.png)
 
