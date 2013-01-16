@@ -5,11 +5,11 @@ Computer graphic project, include a scene viewer and a ray tracer.
 
 Following are some pictures rendered by my raytracer. (The scene file of these picture are comming from UC berkeley CS184 course)
 
-![4 balls](https://raw.github.com/jianhe25/Social-Website/master/hw3-RayTracer/submit_scenes/scene4-specular.png)
+![4 balls](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene4-specular.png)
 
 * Cornell box
-![Cornell box](https://raw.github.com/jianhe25/Social-Website/master/hw3-RayTracer/submit_scenes/scene6.png)
+![Cornell box](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene6.png)
 
 * Dragon
-![Dragon](https://raw.github.com/jianhe25/Social-Website/master/hw3-RayTracer/submit_scenes/scene7.png)
+![Dragon](https://raw.github.com/jianhe25/ComputerGraphics-Berkeley-CS184/master/hw3-RayTracer/submit_scenes/scene7.png)
 
