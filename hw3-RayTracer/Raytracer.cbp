@@ -4,6 +4,7 @@
 	<Project>
 		<Option title="Raytracer" />
 		<Option pch_mode="2" />
+		<Option default_target="Release" />
 		<Option compiler="gcc" />
 		<Build>
 			<Script file="lib_finder.script" />
@@ -27,6 +28,7 @@
 				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="scene6.test" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -48,6 +50,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
+		<Unit filename="object_test.cc" />
 		<Unit filename="scene.cpp" />
 		<Unit filename="scene.h" />
 		<Unit filename="scene1.test" />

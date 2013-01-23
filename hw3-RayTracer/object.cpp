@@ -21,15 +21,15 @@ Color Color::operator + (const Color& otherColor) const {
 Color Color::operator * (const float scale) const {
     return Color(r * scale, g * scale, b * scale);
 }
+bool Color::isZero() const { return Rbyte() == 0 && Gbyte() == 0 && Bbyte() == 0; }
+
 Materials::Materials() : shininess(0.0) {}
 
 Ray::Ray(const vec3& _o, const vec3& _direction) :
     o(_o), direction(_direction) {
 }
 
-Object::Object() {
-    //std::cerr << "The constructor of abstract object should not be called" << std::endl;
-    //throw 2;
+Object::Object() : transform(1.0), InversedTransform(1.0) {
 }
 bool Object::Intersect(const Ray& ray, float* dis_to_ray) const {
     std::cerr << "Ray should not intersect with abstract object" << std::endl;
@@ -66,7 +66,10 @@ bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) const {
     float x = std::min((-c1 - sqrt(delta)) / (2*c2), 
                    (-c1 + sqrt(delta)) / (2*c2));
     
-    if (x < -eps) {
+    if (x < 1e-2) {
+        if (x > 0) {
+            //printf("sphere near zero = %f\n", x);
+        }
         return false;
     } else {
         *dis_to_ray = x;
@@ -74,18 +77,17 @@ bool Sphere::Intersect(const Ray& ray, float* dis_to_ray) const {
     }
 }
 vec3 vec3TimeMat4(const vec3& a, const mat4& mat) {
-    vec4 a_ex = vec4(a, 1.0) * mat;
+    vec4 a_ex = vec4(a, 1.0f) * mat;
     return vec3(a_ex.x / a_ex.w, a_ex.y / a_ex.w, a_ex.z / a_ex.w);
 }
 vec3 ray3TimeMat4(const vec3& a, const mat4& mat) {
-    vec4 a_ex = vec4(a, 0.0) * mat;
-    return vec3(a_ex.x, a_ex.y, a_ex.z);
+    return vec3(vec4(a, 0.0f) * mat);
 }
 vec3 Sphere::InterpolatePointNormal(const vec3& point) const {
     //printf("distance = %f\n",glm::length(point - this->o) - this->r);
     //assert(fabs(glm::length(point - this->o) - this->r) < 1); // ensure point on the surface
     vec3 p = vec3TimeMat4(point, this->InversedTransform);
-    return ray3TimeMat4(p-o, this->transform);
+    return vec3(vec4(p-o, 0.0f) * glm::transpose(this->InversedTransform));
 }
 
 Triangle::Triangle(
@@ -129,6 +131,12 @@ bool Triangle::Intersect(const Ray& ray, float* dis_to_ray) const {
     float t = (glm::dot(a,n) - glm::dot(p,n)) / glm::dot(dir,n);
     vec3 p0 = p + (dir * t);
     
+    if (t < 1e-2) {
+        if (t > 0) {
+            //printf("triangle near zero = %f\n", t);
+        }
+        return false;
+    }
     // check if p0 in triangle, because triangle is convex.
     // if p0 in triangle, then absolute area equals to area_vec length, otherwise not.
     
@@ -163,7 +171,7 @@ vec3 Triangle::InterpolatePointNormal(const vec3& point) const {
     float gamma = glm::dot(n, tmp_nc) / glm::dot(n,n);
     float alpha = 1.0 - beta - gamma;
     vec3 ret = (na * alpha) + (nb * beta) + (nc * gamma);
-    return ray3TimeMat4(ret, this->transform);
+    return vec3(vec4(ret, 0.0f) * glm::transpose(this->InversedTransform));
 }
 
 Object::~Object() {

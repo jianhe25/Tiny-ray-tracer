@@ -66,7 +66,7 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth,
                        int pixH, int pixW) {
     debugPixH = pixH;
     debugPixW = pixW;
-    if (depth > RAYTRACE_DEPTH_LIMIT) {
+    if (depth > scene.maxDepth) {
         return BLACK;
     }
     const Object* hit_object;
@@ -74,9 +74,9 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth,
     if (!GetIntersection(ray, scene, hit_object, &hit_point))
         return BLACK;
     
-    Color color(hit_object->materials.ambient);
+    Color color(hit_object->materials.ambient + hit_object->materials.emission);
     for (int i = 0; i < (int)scene.lights.size(); ++i) {
-       
+
         if (scene.lights[i].type == Light::point) {
             Ray light_ray(scene.lights[i].position(),
                           hit_point - scene.lights[i].position());
@@ -93,31 +93,37 @@ Color RayTracer::Trace(const Ray& ray, const Scene& scene, int depth,
             */
             if (ok) {
                 if (IsSameVector(hit_point, light_hit)) {
-                    color = color + CalcLight(scene.lights[i], hit_object, ray, hit_point);
+                    color = color + CalcLight(scene.lights[i], hit_object, 
+                                              ray, hit_point, scene.attenuation);
                 }
             }
         } else {
-            color = color + CalcLight(scene.lights[i], hit_object, ray, hit_point);
+            color = color + CalcLight(scene.lights[i], hit_object, 
+                                      ray, hit_point, scene.attenuation);
         }
     }
-    return color;
-/*
-    if (materials.specular > 0) {
-        Ray reflect_ray = ray.CreateReflectRay(hit_point, normal);
+    
+    if (!hit_object->materials.specular.isZero()) {
+        vec3 unit_normal = glm::normalize( hit_object->InterpolatePointNormal(hit_point) );
+        Ray reflect_ray = CreateReflectRay(ray, hit_point, unit_normal);
         // Make a recursive call to trace the reflected ray
-        Color temp_color = Trace(reflect_ray, scene, depth+1);
-        color += materials.specular * temp_color;
+        Color temp_color = Trace(reflect_ray, scene, depth+1, pixH, pixW);
+        color = color + hit_object->materials.specular * temp_color;
     }
-*/
+    return color;
+}
+Ray RayTracer::CreateReflectRay(const Ray& ray, const vec3& hit, const vec3& unit_normal) {
+    vec3 p1 = ray.direction - (unit_normal * (2 * glm::dot(ray.direction, unit_normal)));
+    return Ray(hit, p1);
 }
 Color RayTracer::CalcLight(const Light& light, const Object* hit_object, 
-                           const Ray& ray, const vec3& hit_point) {
+                           const Ray& ray, const vec3& hit_point, const float* attenuation) {
 
     vec3 light_direction;
     if (light.type == Light::point) {
-        light_direction = glm::normalize(light.positionOrDirection - hit_point);
+        light_direction = glm::normalize(light.position() - hit_point);
     } else 
-        light_direction = glm::normalize(light.positionOrDirection);
+        light_direction = glm::normalize(light.direction());
     
     vec3 normal = glm::normalize(hit_object->InterpolatePointNormal(hit_point));
     
@@ -129,23 +135,11 @@ Color RayTracer::CalcLight(const Light& light, const Object* hit_object,
 	float nDotH = max(glm::dot(normal, halfvec), 0.0f);
 	Color specular = materials.specular * light.color * pow(nDotH, materials.shininess);
 	
-	//debug(specular, "specular = ");
-	//debug(materials.specular, "materials.specular = ");
-	//printf("nDotH = %f\n",nDotH);
-	//debug(light.color,)
-	if (hit_object->index == 100) {
-	    if (++debugCount < 10) {
-	        //Sphere* sphere = dynamic_cast<Sphere*>(hit_object);
-	        //debug(sphere->o, "sphere = ");
-	        printf("pix = (%d %d)\n",debugPixH, debugPixW);
-	        debug(hit_point, "hit is ");
-	        debug(normal, "normal is ");
-	        debug(light_direction, "light_direction is ");
-            printf("nDotL = %f\n",glm::dot(normal, light_direction));
-            puts("");
-	    } else 
-            assert(0);
+	Color result = diffuse + specular;
+	if (light.type == Light::point) {
+        float r = glm::length(light.position() - hit_point);
+        result = result * (1.0 / (attenuation[2] * r * r + attenuation[1] * r + attenuation[0]));
 	}
-	return diffuse + specular;
+	return result;
 }
 

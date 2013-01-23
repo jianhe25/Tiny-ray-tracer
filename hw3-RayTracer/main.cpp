@@ -12,7 +12,7 @@
 using namespace std;
 
 #include "RayTracer.h"
-//#include "object_test.cc"
+#include "object_test.cc"
 #include "scene_test.cc"
 #include "RayTracer_test.cc"
 
@@ -51,8 +51,8 @@ void RunTest() {
     SceneTester::ReadFileTest();
     RayTracerTester ray_tracer_tester;
     ray_tracer_tester.GenerateRayTest();
-//    ObjectTester::TriangleIntersectionTest();
-//    ObjectTester::SphereIntersectionTest();
+    ObjectTester::TriangleIntersectionTest();
+    ObjectTester::SphereIntersectionTest();
 }
 void debug(mat4 mat) {
     for (int i = 0; i < 4; ++i) {

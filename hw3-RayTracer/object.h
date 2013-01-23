@@ -29,13 +29,14 @@ struct Color
 	float r, g, b;
 	Color() : r(0.0), g(0.0), b(0.0) {}
 	Color(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
-    BYTE Rbyte() { return std::min(r, 1.0f) * 255; }
-	BYTE Gbyte() { return std::min(g, 1.0f) * 255; }
-	BYTE Bbyte() { return std::min(b, 1.0f) * 255; }
+    BYTE Rbyte() const { return std::min(r, 1.0f) * 255; }
+	BYTE Gbyte() const { return std::min(g, 1.0f) * 255; }
+	BYTE Bbyte() const { return std::min(b, 1.0f) * 255; }
 	bool operator == (const Color& otherColor) const;
 	Color operator * (const Color& otherColor) const;
 	Color operator + (const Color& otherColor) const;
 	Color operator * (const float scale) const;
+	bool isZero() const;
 };
 
 const Color BLACK(0, 0, 0);

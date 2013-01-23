@@ -77,8 +77,7 @@ void Scene::readfile(const string &filename) {
                 if (cmd == "directional")
                     light.type = Light::directional;
                 else if (cmd == "point")
-                    light.type = Light::point;
-                
+                    light.type = Light::point;                
                 lights.push_back(light);
             }
 		}
@@ -229,6 +228,10 @@ void Scene::readfile(const string &filename) {
     }
 }
 Scene::Scene() {
+    attenuation[2] = 0.0;
+    attenuation[1] = 0.0;
+    attenuation[0] = 1.0;
+    maxDepth = 5;
 }
 
 Scene::~Scene() {
